@@ -1,0 +1,33 @@
+#create-post{
+    background-color:  #ffffff;
+    display: grid;
+    grid-template-columns: 20% 1fr 15%;
+    gap:5px;
+}
+
+#create-post button{
+    height: 50%;
+    margin: auto;
+}
+
+#create-post input{
+    background-color: white;
+    border-radius: 15px;
+    height: 70%;
+    margin: auto;
+    width: 90%;
+    color: black;
+}
+
+
+.profile img{
+    width: 100%;
+    height:100%;
+}
+
+.profile{
+    width: 8vw;
+    height:8vh;
+    border-radius: 50%;
+    border: solid 2px black
+}

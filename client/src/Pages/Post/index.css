@@ -1,0 +1,17 @@
+.post form{
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.post{
+    width: 80%;
+    margin: auto;
+}
+
+.post input{
+    background-color: white;
+    color: black;
+}
+

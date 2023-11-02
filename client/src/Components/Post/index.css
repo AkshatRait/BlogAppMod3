@@ -1,0 +1,17 @@
+#timeline-post{
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#timeline-post img{
+    width: 100%;
+    height: auto;
+}
+
+.post-buttons{
+    width: 30%;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
