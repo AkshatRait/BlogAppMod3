@@ -12,10 +12,11 @@ console.log(posts);
   return (
     <div id="timeline">
         <CreatePost />
-        {posts.map((post)=>{
-          return <Post post={post}/>
-          
-        })}
+        <div className="posts">
+          {posts.map((post)=>{
+            return <Post post={post}/>
+          })}
+        </div>
     </div>
   )
 }
