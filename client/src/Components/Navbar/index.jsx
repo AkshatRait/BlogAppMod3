@@ -5,38 +5,38 @@ import PersonIcon from '@mui/icons-material/Person';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { useContext } from "react";
 import { primaryContext } from "../../Context/PrimaryProvider";
+import MakeProfile from "../MakeProfile";
 
 const Navbar = () => {
-   const {addingPost,setAddingPost} = useContext(primaryContext)
-    
+   const {addingPost,setAddingPost,currentLoggedInUser} = useContext(primaryContext)
   return (
-    <div class="navigation">
-   <div class="logo">
-      <Link class="no-underline" href="#">
+    <div className="navigation">
+   <div className="logo">
+      <Link className="no-underline" href="/">
       Bloggers Spot
       </Link>
    </div>
-   <div class="navigation-search-container">
-      <i class="fa fa-search"></i>
-      <input class="search-field" type="text" placeholder="Search"/>
-      <div class="search-container">
-         <div class="search-container-box">
-            <div class="search-results">
+   <div className="navigation-search-container">
+      <i className="fa fa-search"></i>
+      <input className="search-field" type="text" placeholder="Search"/>
+      <div className="search-container">
+         <div className="search-container-box">
+            <div className="search-results">
             </div>
          </div>
       </div>
    </div>
-   <div class="navigation-icons">
+   <div className="navigation-icons">
       <Link onClick={()=>setAddingPost(
          addingPost ? null : true
-      )} class="navigation-link notification">
+      )} className="navigation-link notification">
             <AddIcon />
       </Link>
-      <Link to="" class="navigation-link">
-      <PersonIcon />
+      <Link to="/makeprofile" className="navigation-link">
+         <PersonIcon />
       </Link>
-      <Link to="" id="signout" class="navigation-link">
-      <LogoutIcon />
+      <Link to="" id="signout" className="navigation-link">
+         <LogoutIcon />
       </Link>
    </div>
 </div>

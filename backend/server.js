@@ -3,15 +3,18 @@ const express = require('express');
 const helmet = require('helmet');
 const cors = require('cors');
 const path = require('path');
+const morgan = require('morgan')
 const User = require('./models/User.js');
 const Post = require('./models/Post.js');
 require('./config/db.js');
 const app = express();
 const PORT = 3000;
+const bcrypt = require('bcrypt');
+const UserProfile = require('./models/UserProfile.js');
 
 //START MIDDLEWARE
 app.use(express.json());
-
+app.use(morgan('dev'));
 app.use(cors({
     origin:"*"
 }));
@@ -28,6 +31,9 @@ app.use(express.static(path.join(__dirname, "../client/dist")))
 //END MIDDLEWARE
 
 
+let listOfUsers = [];
+
+
 //GET ROUTES
 app.get("/getPosts",async (req,res)=>{
     try{
@@ -38,9 +44,56 @@ app.get("/getPosts",async (req,res)=>{
     }
 })
 
+app.get('/getUsers',async(req,res)=>{
+    listOfUsers = await User.find();
+    console.log(listOfUsers);
+    res.send('Users found')
+})
 
+app.get('/profileData',async(req,res)=>{
+  let nameOfProfile = req.body.name
+  let dbResponse = await UserProfile.findOne({});
+
+})
 
 //POST ROUTES
+app.post('/getSignedinUser', async (req, res) => {
+  try {
+    const userEmail = req.body.email;
+    const userPassword = req.body.password;
+
+    if (!userEmail || !userPassword) {
+      return res.status(400).send('Email or password is missing or invalid');
+    }
+
+    // Find the user based on the email
+    const user = await User.findOne({ email: userEmail });
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    // Compare the provided password with the stored hashed password
+    bcrypt.compare(userPassword, user.password, (err, result) => {
+      if (err || !result) {
+        // Passwords don't match
+        return res.status(401).json({ message: 'Authentication failed' });
+      }
+
+      // Passwords match, so the user is authenticated
+      // Here, you can generate and send a token or session ID to the client
+      // for subsequent authenticated requests.
+
+      // For this example, we'll just send a success message.
+      res.status(200).json({ message: 'Authentication successful' });
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
+
 app.post('/createPost',async(req,res)=>{
     try{
         let dbResponse = await Post.create(req.body);
@@ -50,18 +103,59 @@ app.post('/createPost',async(req,res)=>{
     }
 })
 
-app.post("/createUser",async(req,res)=>{
-    try{
-        let dbResponse = await User.create(req.body)
-        res.send("User Created")
-    }catch(err){
-        console.log(err);
+
+app.post("/createUser", async (req, res) => {
+    let userInfo = req.body;
+    const { email, password, firstName, lastName } = userInfo;
+    const existingUser = listOfUsers.find((user) => user.email === userInfo.email);
+    if (existingUser) {
+      return res.status(400).json({ message: 'User with this email already exists. Please Log In.' });
     }
-})
+  
+    try {
+      const saltRounds = 10; // Define the number of salt rounds
+      bcrypt.hash(password, saltRounds, async (err, hashedPassword) => {
+        if (err) {
+          return res.status(500).send('Error hashing the password');
+        }
+  
+        const newUser = {
+          firstName,
+          lastName,
+          email,
+          password: hashedPassword,
+        };
+        listOfUsers.unshift(newUser);
+  
+        await User.create(listOfUsers[0]);
+        return res.status(201).json(newUser);
+      });
+    } catch (err) {
+      console.log(err);
+      return res.status(500).send('Error creating user');
+    }
+  });
+  
+  app.post('/makeProfile',async(req,res)=>{
+    try{
+      let dbResponse = await UserProfile.create(req.body);
+      res.status(200).send('Made the Profile')
+    }catch(err){
+      res.send("error making profile")
+    }
 
-
+  })
 //PUT ROUTES
 //DELETE ROUTES
+app.delete('/deletePost',async(req,res)=>{
+  try{
+  let idOfPost = req.body.id
+  let dbResponse = await Post.deleteOne({_id : idOfPost})
+  res.send("delete successful")}
+  catch(err){
+    res.send(err)
+  }
+})
 app.listen(PORT,()=>{
     console.log(`Server is live and listening on ${PORT}`)
 })

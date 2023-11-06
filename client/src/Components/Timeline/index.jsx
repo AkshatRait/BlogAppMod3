@@ -8,7 +8,6 @@ const Timeline = () => {
 
     
     const { posts } = useContext(primaryContext)
-console.log(posts);
   return (
     <div id="timeline">
         <CreatePost />

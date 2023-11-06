@@ -4,6 +4,8 @@ import HomePage from './Pages/Homepage'
 import Navbar from './Components/Navbar'
 import Timeline from './Components/Timeline'
 import SignUp from './Pages/Sign-Up'
+import SignIn from './Pages/SignIn/SignIn'
+import MakeProfile from './Components/MakeProfile'
 
 function App() {
 
@@ -14,6 +16,8 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage />}/>
         <Route path="/signup" element={<SignUp />}/>
+        <Route path="/signin" element={<SignIn />}/>
+        <Route path="/makeprofile" element={<MakeProfile />}/>
       </Routes>
       
        

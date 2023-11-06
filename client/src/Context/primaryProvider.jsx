@@ -9,6 +9,11 @@ const [posts,setPosts] = useState([])
 const [users,setUsers] = useState([])
 const [addingPost,setAddingPost]= useState(null)
 const [submitHappened, setSubmitHappened] = useState(null)
+const [isLoggedIn, setIsLoggedIn] = useState(false)
+const [currentLoggedInUser, setCurrentLoggedInUser] = useState({name: "",image:""})
+const [newUser, setNewUser] = useState(false)
+const [cameFromSignUp,setCameFromSignUp] = useState(null)
+const [deletePostStatus,setDeletePostStatus] = useState(null)
 
 
 useEffect(()=>{
@@ -35,7 +40,17 @@ return (
         addingPost,
         setAddingPost,
         submitHappened, 
-        setSubmitHappened
+        setSubmitHappened,
+        isLoggedIn, 
+        setIsLoggedIn,
+        currentLoggedInUser, 
+        setCurrentLoggedInUser,
+        newUser, 
+        setNewUser,
+        cameFromSignUp,
+        setCameFromSignUp,
+        deletePostStatus,
+        setDeletePostStatus,
 
     }}>
             {children}  

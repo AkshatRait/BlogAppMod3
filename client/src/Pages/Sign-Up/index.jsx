@@ -1,10 +1,9 @@
 import * as React from 'react';
+import "./index.css"
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
@@ -12,9 +11,10 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import validator from 'validator'
 import axios from 'axios';
 import { primaryContext } from '../../Context/PrimaryProvider';
+import {Link as RouterLink} from 'react-router-dom'
+import SignIn from '../SignIn/SignIn';
 
 function Copyright(props) {
     return (
@@ -34,24 +34,17 @@ function Copyright(props) {
 
 const SignUp = () => {
 
-    // const [formErrors, setFormErrors] = React.useState({});
-
-    const {users,setUsers} = React.useContext(primaryContext)
-
-//   const validateFormData = () => {
-//     const errors = {};
-
-//     if (!validator.isEmail(signupFormData.email)) {
-//       errors.email = 'Invalid email address';
-//     }
-
-//     if (signupFormData.password.length < 8) {
-//       errors.password = 'Password must be at least 8 characters long';
-//     }
+const [existingUserError,setExistingUserError] = React.useState('');
 
 
-//     return errors;
-//   };
+    const {users,setUsers,
+      isLoggedIn,setIsLoggedIn,
+      currentLoggedInUser, 
+      setCurrentLoggedInUser,
+    newUser,
+  setNewUser,
+  cameFromSignUp,setCameFromSignUp} = React.useContext(primaryContext)
+
     const [signupFormData,setSignupFormData] = React.useState({
         firstName:"",
         lastName:"",
@@ -66,38 +59,50 @@ const SignUp = () => {
             [id]: value
         }));
     }
-    console.log("submit")
+    
 
     const handleSubmit = (e) => {
-        e.preventDefault();
-        // const errors = validateFormData();
-
-        
-            try {
-             axios({
-                method: "POST",
-                url: "/server/createUser",
-                data: signupFormData
-             }).then((res)=>{
-                 setUsers((users) => [...users, res.data]);
-                 setSignupFormData({ 
-                    firstName:"",
-                    lastName:"",
-                    email:"",
-                    password:"", 
-                }); // Clear the form on success
-             })
-            
-            } catch (err) {
-              console.log(err);
-              // Handle API error here and show an appropriate error message to the user
-            }
-        //   } else {
-        //     setFormErrors(errors); // Set validation errors in the state
-        //   }
-
-      };
+      e.preventDefault();
+      // const errors = validateFormData();
     
+      try {
+        axios({
+          method: "POST",
+          url: "/server/createUser",
+          data: signupFormData
+        })
+          .then((res) => {
+            setNewUser(true)
+            setIsLoggedIn(true);
+            localStorage.setItem('isLoggedIn', 'true');
+            setUsers((users) => [...users, res.data]);
+            console.log(currentLoggedInUser);
+            setSignupFormData({
+              firstName: "",
+              lastName: "",
+              email: "",
+              password: "",
+            }); // Clear the form on success
+          })
+          .catch((error) => {
+            if (error.response && error.response.status === 400) {
+              setExistingUserError(error.response.data.message);
+            } else {
+              // Handle other errors
+              console.error('An error occurred:', error);
+            }
+          });
+        // Handle API error here and show an appropriate error message to the user
+      } catch (error) {
+        // Handle other non-Axios errors here
+        console.error('An error occurred:', error);
+      }
+    };
+
+
+    if(currentLoggedInUser){
+      return <SignIn />
+    }else{
       return (
         <ThemeProvider theme={defaultTheme}>
           <Container component="main" maxWidth="xs">
@@ -126,6 +131,7 @@ const SignUp = () => {
                       fullWidth
                       id="firstName"
                       label="First Name"
+                      value={signupFormData.firstName}
                       onChange={handleChange}
                       autoFocus
                     />
@@ -137,10 +143,12 @@ const SignUp = () => {
                       id="lastName"
                       label="Last Name"
                       name="lastName"
+                      value={signupFormData.lastName}
                       onChange={handleChange}
                       autoComplete="family-name"
                     />
                   </Grid>
+                  {existingUserError && <div className="error-message">{existingUserError}</div>}
                   <Grid item xs={12}>
                     <TextField
                       required
@@ -149,10 +157,10 @@ const SignUp = () => {
                       label="Email Address"
                       name="email"
                       autoComplete="email"
+                      value={signupFormData.email}
                       onChange={handleChange}
                     />
-                    {/* {formErrors.email && <p className="error">{formErrors.email}</p>} */}
-
+  
                   </Grid>
                   <Grid item xs={12}>
                     <TextField
@@ -162,6 +170,7 @@ const SignUp = () => {
                       label="Password"
                       type="password"
                       id="password"
+                      value={signupFormData.password}
                       autoComplete="new-password"
                       onChange={handleChange}
                     />
@@ -178,9 +187,9 @@ const SignUp = () => {
                 </Button>
                 <Grid container justifyContent="flex-end">
                   <Grid item>
-                    <Link href="#" variant="body2">
+                    <RouterLink onClick={setCameFromSignUp(true)}to="/signin" variant="body2">
                       Already have an account? Sign in
-                    </Link>
+                    </RouterLink>
                   </Grid>
                 </Grid>
               </Box>
@@ -189,6 +198,9 @@ const SignUp = () => {
           </Container>
         </ThemeProvider>
   )
+
+    }
+    
 }
 
 export default SignUp
