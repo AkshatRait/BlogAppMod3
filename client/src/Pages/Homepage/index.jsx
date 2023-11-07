@@ -5,13 +5,14 @@ import { primaryContext } from "../../Context/PrimaryProvider"
 import PostPage from "../Post"
 import SignIn from "../SignIn/SignIn"
 import MakeProfile from "../../Components/MakeProfile"
+import axios from "axios"
 
 const HomePage = () => {
 
   const [isLoading, setIsLoading] = useState(true);
-  const {addingPost,setAddingPost,isLoggedIn,setIsLoggedIn,newUser,setNewUser,cameFromSignUp,setCameFromSignUp} = useContext(primaryContext)
+  const {setUser,user,addingPost,setAddingPost,isLoggedIn,setIsLoggedIn,newUser,setNewUser,cameFromSignUp,setCameFromSignUp,editProfile,setEditProfile} = useContext(primaryContext)
 
-
+console.log(user)
   if(cameFromSignUp){
     setNewUser(true)
   }
@@ -32,6 +33,7 @@ try{
     setIsLoading(false)
   }
 },[])
+
 
   return (
     <div>

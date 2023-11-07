@@ -86,6 +86,7 @@ main {
 .navigation-icons {
 	display: flex;
     gap:20px;
+	align-items: center;
 }
 
 .navigation-search-container input:focus {
@@ -135,5 +136,10 @@ main {
   -ms-user-select: none;
 }
 
-
+p.name{
+	padding: 5px;
+	border-style:outset;
+	border-color: gray;
+	border-radius: 5px;
+}
 /* Official and not clone */

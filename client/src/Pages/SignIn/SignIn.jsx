@@ -43,35 +43,47 @@ export default function SignIn() {
 })
 const [loading, setLoading] = React.useState(true);
   const [error, setError] = React.useState(null);
-  
 
-const {currentLoggedInUser, setCurrentLoggedInUser,isLoggedIn, setIsLoggedIn} = React.useContext(primaryContext)
+const {setUser,user,currentLoggedInUser, setCurrentLoggedInUser,isLoggedIn, setIsLoggedIn} = React.useContext(primaryContext)
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    try{
-      const userEmail = signinFormData.email;
-      const userPassword = signinFormData.password;
-      axios({
-        method: "POST",
-        url: `/server/getSignedinUser`,
-        data: signinFormData,
-      }).then((res)=>{
-        // console.log(res.data.message);
-        if(res.data.message === "Authentication successful"){
+const handleSubmit = (e) => {
+  e.preventDefault();
+  try {
+    const userEmail = signinFormData.email;
+    const userPassword = signinFormData.password;
+
+    axios({
+      method: "POST",
+      url: `/server/getSignedinUser`,
+      data: signinFormData,
+    })
+      .then((res) => {
+        setCurrentLoggedInUser(res.data.email);
+        if (res.data.message === "Authentication successful") {
           setIsLoggedIn(true);
           localStorage.setItem('isLoggedIn', 'true');
+          
+          // After successful authentication, retrieve user data
+          axios({
+            method: "GET",
+            url: "/getUser",
+            params: { email: signinFormData.email },
+          }).then((res) => {
+            console.log(res.data);
+            setUser(res.data);
+          });
         }
         setLoading(false);
       })
-
-    }catch(err){
-      console.log(err)
-        setError(err.message);
-        setLoading(false);
-    }
-    
+      .catch((error) => {
+        setError(error.response.data.message, '. Please check the password or create an account.');
+      });
+  } catch (err) {
+    console.log(err);
   }
+};
+
+  
 
   const handleChange = (e) =>{
     const {id,value} = e.target;
@@ -124,8 +136,8 @@ const {currentLoggedInUser, setCurrentLoggedInUser,isLoggedIn, setIsLoggedIn} = 
               onChange={handleChange}
               autoComplete="current-password"
             />
-           
-              {isLoggedIn ? <div><p>Login Successful</p><RouterLink to="/"><Button color="success"variant="contained">Proceed</Button></RouterLink></div> :  <Button
+              {<p>{error}</p>}
+              {isLoggedIn ? <div><p>Login Successful</p><RouterLink to="/home"><Button color="success"variant="contained">Proceed</Button></RouterLink></div> :  <Button
               type="submit"
               fullWidth
               variant="contained"

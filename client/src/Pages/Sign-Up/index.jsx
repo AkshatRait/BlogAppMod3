@@ -75,7 +75,6 @@ const [existingUserError,setExistingUserError] = React.useState('');
             setNewUser(true)
             setIsLoggedIn(true);
             localStorage.setItem('isLoggedIn', 'true');
-            setUsers((users) => [...users, res.data]);
             console.log(currentLoggedInUser);
             setSignupFormData({
               firstName: "",

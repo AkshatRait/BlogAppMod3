@@ -12,7 +12,7 @@ const Navbar = () => {
   return (
     <div className="navigation">
    <div className="logo">
-      <Link className="no-underline" href="/">
+      <Link className="no-underline" to="/">
       Bloggers Spot
       </Link>
    </div>
@@ -32,12 +32,13 @@ const Navbar = () => {
       )} className="navigation-link notification">
             <AddIcon />
       </Link>
-      <Link to="/makeprofile" className="navigation-link">
+      <Link to="/profile" className="navigation-link">
          <PersonIcon />
       </Link>
       <Link to="" id="signout" className="navigation-link">
          <LogoutIcon />
       </Link>
+      {currentLoggedInUser ? <p className="name">{currentLoggedInUser.name === currentLoggedInUser.name ? currentLoggedInUser.name : currentLoggedInUser.email}</p> : <></>}
    </div>
 </div>
   )

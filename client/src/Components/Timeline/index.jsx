@@ -13,7 +13,7 @@ const Timeline = () => {
         <CreatePost />
         <div className="posts">
           {posts.map((post)=>{
-            return <Post post={post}/>
+            return <Post key={[post]} post={post}/>
           })}
         </div>
     </div>

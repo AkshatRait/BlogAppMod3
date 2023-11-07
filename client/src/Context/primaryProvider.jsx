@@ -14,6 +14,10 @@ const [currentLoggedInUser, setCurrentLoggedInUser] = useState({name: "",image:"
 const [newUser, setNewUser] = useState(false)
 const [cameFromSignUp,setCameFromSignUp] = useState(null)
 const [deletePostStatus,setDeletePostStatus] = useState(null)
+const [editProfile,setEditProfile] = useState(false)
+const [user,setUser] = useState(null)
+
+
 
 
 useEffect(()=>{
@@ -51,6 +55,10 @@ return (
         setCameFromSignUp,
         deletePostStatus,
         setDeletePostStatus,
+        editProfile,
+        setEditProfile,
+        user,
+        setUser
 
     }}>
             {children}  

@@ -44,10 +44,27 @@ app.get("/getPosts",async (req,res)=>{
     }
 })
 
+app.get("/getUser", async (req, res) => {
+  try {
+    let userEmail = req.query.email; // Use req.query to access query parameters
+    let dbResponse = await User.findOne({ email: userEmail });
+    if (dbResponse) {
+      res.status(200).json({ message: "User found", user: dbResponse });
+    } else {
+      res.status(404).json({ message: "User NOT found" });
+    }
+  } catch (err) {
+    res.status(500).json({ message: "Internal server error" });
+}})
+
 app.get('/getUsers',async(req,res)=>{
+  try{
     listOfUsers = await User.find();
     console.log(listOfUsers);
     res.send('Users found')
+  }catch(err){
+    console.log(err)
+  }
 })
 
 app.get('/profileData',async(req,res)=>{
@@ -63,7 +80,7 @@ app.post('/getSignedinUser', async (req, res) => {
     const userPassword = req.body.password;
 
     if (!userEmail || !userPassword) {
-      return res.status(400).send('Email or password is missing or invalid');
+      return res.status(400).json({message:'Email or password is missing or invalid'});
     }
 
     // Find the user based on the email
@@ -106,7 +123,7 @@ app.post('/createPost',async(req,res)=>{
 
 app.post("/createUser", async (req, res) => {
     let userInfo = req.body;
-    const { email, password, firstName, lastName } = userInfo;
+    const { email, password, firstName, lastName ,submitHappened,setSubmitHappened} = userInfo;
     const existingUser = listOfUsers.find((user) => user.email === userInfo.email);
     if (existingUser) {
       return res.status(400).json({ message: 'User with this email already exists. Please Log In.' });
@@ -146,6 +163,28 @@ app.post("/createUser", async (req, res) => {
 
   })
 //PUT ROUTES
+app.put("/editPost/",async (req,res)=>{
+  try{
+    let idOfPost = req.query.idOfPost
+    const { image, caption } = req.body;
+    if(image === ""){
+      let dbResponse = await Post.findByIdAndUpdate(
+        idOfPost, 
+        {caption},
+        {new:true});
+      res.status(200).send("Editing successful")
+    }else{
+      let dbResponse = await Post.findByIdAndUpdate(
+        idOfPost, 
+        {image,caption},
+        {new:true});
+      res.status(200).send("Editing successful")
+    }
+  }catch(err){
+    res.status(400).json({message:'Error editing post'})
+  }
+})
+
 //DELETE ROUTES
 app.delete('/deletePost',async(req,res)=>{
   try{

@@ -7,7 +7,7 @@ const CreatePost = () => {
   const [postFormData,setPostFormData] = useState({
     caption: ""
   })
-  const {setSubmitHappened}=useContext(primaryContext);
+  const {setSubmitHappened,currentLoggedInUser}=useContext(primaryContext);
   const handleChange = (e)=>{
     const { name,value } = e.target;
     setPostFormData((prevState) => ({
@@ -37,7 +37,7 @@ const CreatePost = () => {
   return (
     <div id='create-post'>
         <div className="profile">
-            <img src="https://www.spongebobshop.com/cdn/shop/products/SB-Standees-Spong-2_800x.jpg?v=1603744569" alt="" />
+            <img src="" alt="" />
         </div>
         <input 
             type="text"
