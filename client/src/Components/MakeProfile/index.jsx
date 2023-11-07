@@ -2,7 +2,7 @@ import { useContext, useState } from "react"
 import "./index.css" 
 import axios from "axios"
 import Timeline from "../Timeline";
-import { primaryContext } from "../../Context/PrimaryProvider";
+import { primaryContext } from "../../Context/primaryProvider";
 
 const MakeProfile = () => {
   const {currentLoggedInUser,setCurrentLoggedInUser} = useContext(primaryContext)

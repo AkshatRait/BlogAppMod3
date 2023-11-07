@@ -4,7 +4,7 @@ import AddIcon from '@mui/icons-material/Add';
 import PersonIcon from '@mui/icons-material/Person';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { useContext } from "react";
-import { primaryContext } from "../../Context/PrimaryProvider";
+import { primaryContext } from "../../Context/primaryProvider";
 import MakeProfile from "../MakeProfile";
 
 const Navbar = () => {

@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { primaryContext } from '../../Context/PrimaryProvider';
+import { primaryContext } from '../../Context/primaryProvider';
 import axios from 'axios';
 import Timeline from '../../Components/Timeline';
 import { Link } from 'react-router-dom';

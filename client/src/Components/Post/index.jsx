@@ -5,7 +5,7 @@ import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
 import IosShareIcon from '@mui/icons-material/IosShare';
 import axios from "axios";
 import { useContext, useState } from "react";
-import { primaryContext } from "../../Context/PrimaryProvider";
+import { primaryContext } from "../../Context/primaryProvider";
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 

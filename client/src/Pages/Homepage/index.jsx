@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react"
 import Timeline from "../../Components/Timeline"
 import "./index.css"
-import { primaryContext } from "../../Context/PrimaryProvider"
+import { primaryContext } from "../../Context/primaryProvider"
 import PostPage from "../Post"
 import SignIn from "../SignIn/SignIn"
 import MakeProfile from "../../Components/MakeProfile"

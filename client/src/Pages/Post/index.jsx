@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react'
 import "./index.css"
-import { primaryContext } from '../../Context/PrimaryProvider'
+import { primaryContext } from '../../Context/primaryProvider'
 import axios from 'axios'
 
 const PostPage = () => {

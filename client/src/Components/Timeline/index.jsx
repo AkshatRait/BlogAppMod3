@@ -1,6 +1,6 @@
 import { useContext } from "react"
 import "./index.css"
-import { primaryContext } from "../../Context/PrimaryProvider"
+import { primaryContext } from "../../Context/primaryProvider"
 import Post from "../Post"
 
 const Timeline = () => {
