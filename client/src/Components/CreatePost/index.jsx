@@ -4,8 +4,10 @@ import { primaryContext } from "../../Context/PrimaryProvider"
 import axios from "axios"
 
 const CreatePost = () => {
+  const [showInput,setShowInput] = useState(false)
   const [postFormData,setPostFormData] = useState({
-    caption: ""
+    caption: "",
+    image: ""
   })
   const {setSubmitHappened,currentLoggedInUser}=useContext(primaryContext);
   const handleChange = (e)=>{
@@ -16,7 +18,7 @@ const CreatePost = () => {
     }));
   }
   const handleSubmit = (e)=>{
-    e.preventDefault()
+    e.preventDefault();
     try{
         axios({
             method: "POST",
@@ -30,14 +32,15 @@ const CreatePost = () => {
         console.log(err,"error occurred in submitted post")
     }
     setPostFormData({
-      caption: ""
+      caption: "",
+      image: "",
     })
   }
   
   return (
     <div id='create-post'>
         <div className="profile">
-            <img src="" alt="" />
+            <img src="https://nickelodeonuniverse.com/wp-content/uploads/Squidward.png" alt="" />
         </div>
         <input 
             type="text"
@@ -46,7 +49,15 @@ const CreatePost = () => {
             placeholder='Write Something Here!'
             onChange={handleChange} 
             id="caption" />
-        <button onClick={handleSubmit}type="submit">Post</button>
+            <button onClick={!showInput ? ()=>setShowInput(true) : ()=>setShowInput(false)}>show More:</button>
+            {showInput ? <input 
+            type="text"
+            value={postFormData.image}
+            name="image"
+            placeholder='Add an Image Here!'
+            onChange={handleChange} 
+            id="image" /> : null}
+        <button className="submit"onClick={handleSubmit}type="submit">Post</button>
     </div>
   )
 }

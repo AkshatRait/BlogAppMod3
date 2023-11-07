@@ -16,6 +16,7 @@ import { Link as RouterLink, useActionData} from 'react-router-dom'
 import axios from 'axios';
 import { primaryContext } from '../../Context/PrimaryProvider';
 import "./index.css"
+import SignUp from '../Sign-Up';
 
 
 function Copyright(props) {
@@ -35,7 +36,7 @@ function Copyright(props) {
 
 const defaultTheme = createTheme();
 
-export default function SignIn() {
+const SignIn=()=> {
 
   const [signinFormData,setSigninFormData] = React.useState({
     email:"",
@@ -59,7 +60,6 @@ const handleSubmit = (e) => {
       data: signinFormData,
     })
       .then((res) => {
-        setLogged
         setCurrentLoggedInUser(res.data.email);
         if (res.data.message === "Authentication successful") {
           setIsLoggedIn(true);
@@ -96,8 +96,6 @@ const handleSubmit = (e) => {
     }));
 }
 
-
-if(isLoggedIn){
   return (
     <ThemeProvider theme={defaultTheme}>
       <Container component="main" maxWidth="xs">
@@ -162,9 +160,8 @@ if(isLoggedIn){
         <Copyright sx={{ mt: 8, mb: 4 }} />
       </Container>
     </ThemeProvider>
-  );
-}else{
-  <></>
-}
- 
-}
+  ); 
+        }
+
+
+export default SignIn

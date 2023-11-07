@@ -4,9 +4,10 @@ import HomePage from './Pages/Homepage'
 import Navbar from './Components/Navbar'
 import Timeline from './Components/Timeline'
 import SignUp from './Pages/Sign-Up'
-import SignIn from './Pages/SignIn/SignIn'
 import MakeProfile from './Components/MakeProfile'
 import ProfilePage from './Pages/ProfilePage'
+import SignIn from './Pages/SignIn/SignIn'
+import Footer from './Components/Footer'
 
 function App() {
 
@@ -15,12 +16,13 @@ function App() {
     <div>
       <Navbar />
       <Routes>
-      <Route path="/" element={<Navigate to="/signin" />} />
         <Route path="/home" element={<HomePage />}/>
         <Route path="/signup" element={<SignUp />}/>
-        <Route path="/signin" element={<SignIn />}/>
+        <Route path="/signin" element={<SignIn/>}/>
+      <Route path="/" element={<Navigate to="/signin" />} />
         <Route path="/profile" element={<ProfilePage />}/>
       </Routes>
+      <Footer />
       
        
     </div>

@@ -1,7 +1,6 @@
 #timeline{
     margin:auto;
     width: 50%;
-    background-color: lightgr;
     padding: 2px;
     height: fit-content;
     margin-top:5px;
@@ -11,4 +10,8 @@
     display: flex;
     flex-direction: column-reverse;
 
+}
+
+#timeline-post{
+    border:2px solid black;
 }

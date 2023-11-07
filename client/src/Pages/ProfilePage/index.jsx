@@ -23,14 +23,6 @@ const ProfilePage = () => {
       
 
       const handleSubmit = (e)=>{
-        e.preventDefault()
-        try{
-            axios({
-                method: "POST",
-                url: "/server/makeProfile",
-                data: profileFormData
-            }).then((res)=>{
-              console.log("Submitted successfully",res);
               setProfileMade(true)
               setCurrentLoggedInUser({name:profileFormData.name,
                 image:profileFormData.image})
@@ -38,11 +30,6 @@ const ProfilePage = () => {
                 let image = currentLoggedInUser.image
                 localStorage.setItem("loggedInUser" , name)
                 localStorage.setItem("loggedInImage" , image)
-
-            })
-        }catch(err){
-            console.log(err,"error occurred in submitted profile")
-        }
         setProfileFormData({
           image:"",   
           name: ""
