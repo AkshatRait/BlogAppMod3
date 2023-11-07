@@ -8,11 +8,11 @@ import { primaryContext } from "../../Context/PrimaryProvider";
 import MakeProfile from "../MakeProfile";
 
 const Navbar = () => {
-   const {addingPost,setAddingPost,currentLoggedInUser} = useContext(primaryContext)
+   const {addingPost,setAddingPost,currentLoggedInUser,user,loggedOut,setLoggedOut} = useContext(primaryContext)
   return (
     <div className="navigation">
    <div className="logo">
-      <Link className="no-underline" to="/">
+      <Link className="no-underline" to="/home">
       Bloggers Spot
       </Link>
    </div>
@@ -35,10 +35,10 @@ const Navbar = () => {
       <Link to="/profile" className="navigation-link">
          <PersonIcon />
       </Link>
-      <Link to="" id="signout" className="navigation-link">
+      <Link onClick={()=>setLoggedOut(!true)} id="signout" className="navigation-link">
          <LogoutIcon />
       </Link>
-      {currentLoggedInUser ? <p className="name">{currentLoggedInUser.name === currentLoggedInUser.name ? currentLoggedInUser.name : currentLoggedInUser.email}</p> : <></>}
+      {user === 'string' ? <p className="name">{user.firstName}</p> : <></>}
    </div>
 </div>
   )

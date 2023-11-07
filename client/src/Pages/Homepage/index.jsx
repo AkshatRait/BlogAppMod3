@@ -18,19 +18,24 @@ console.log(user)
   }
 useEffect(()=>{
   const storedLoggedIn = localStorage.getItem("isLoggedIn");
-try{
-  if(storedLoggedIn === "true"){
-    setIsLoggedIn(true);
-    setTimeout(()=>{
-      setIsLoading(false)
-    },1000)
-  }else{
-    setIsLoggedIn(false)
-    setIsLoading(false);
-  }
-}catch(err){
+  try{
+    if(storedLoggedIn === "true"){
+      setIsLoggedIn(true);
+      setTimeout(()=>{
+        setIsLoading(false)
+      },1000)
+    }else{
+      setIsLoggedIn(false)
+      setIsLoading(false);
+    }
+  }catch(err){
     console.error("erorr fetching data from local storage",err)
     setIsLoading(false)
+  }
+  
+  const storedUser = localStorage.getItem("userName");
+  if(storedUser){
+    setUser(storedUser)
   }
 },[])
 

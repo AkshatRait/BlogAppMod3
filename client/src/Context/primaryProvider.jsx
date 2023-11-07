@@ -16,6 +16,7 @@ const [cameFromSignUp,setCameFromSignUp] = useState(null)
 const [deletePostStatus,setDeletePostStatus] = useState(null)
 const [editProfile,setEditProfile] = useState(false)
 const [user,setUser] = useState(null)
+const [loggedOut,setLoggedOut] = useState(null)
 
 
 
@@ -33,6 +34,7 @@ useEffect(()=>{
         console.log("error while getting posts in context")
     }
 },[submitHappened])
+
 
 
 return (
@@ -58,7 +60,9 @@ return (
         editProfile,
         setEditProfile,
         user,
-        setUser
+        setUser,
+        loggedOut,
+        setLoggedOut
 
     }}>
             {children}  

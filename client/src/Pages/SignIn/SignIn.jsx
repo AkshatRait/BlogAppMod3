@@ -44,7 +44,8 @@ export default function SignIn() {
 const [loading, setLoading] = React.useState(true);
   const [error, setError] = React.useState(null);
 
-const {setUser,user,currentLoggedInUser, setCurrentLoggedInUser,isLoggedIn, setIsLoggedIn} = React.useContext(primaryContext)
+const {setUser,user,currentLoggedInUser, setCurrentLoggedInUser,isLoggedIn, setIsLoggedIn,loggedOut,
+  setLoggedOut} = React.useContext(primaryContext)
 
 const handleSubmit = (e) => {
   e.preventDefault();
@@ -58,6 +59,7 @@ const handleSubmit = (e) => {
       data: signinFormData,
     })
       .then((res) => {
+        setLogged
         setCurrentLoggedInUser(res.data.email);
         if (res.data.message === "Authentication successful") {
           setIsLoggedIn(true);
@@ -66,11 +68,12 @@ const handleSubmit = (e) => {
           // After successful authentication, retrieve user data
           axios({
             method: "GET",
-            url: "/getUser",
-            params: { email: signinFormData.email },
+            url: `/server/getUser/${signinFormData.email}`,
           }).then((res) => {
-            console.log(res.data);
-            setUser(res.data);
+            console.log(signinFormData.email);
+            console.log(res.data.user);
+            localStorage.setItem("userName", res.data.user.firstName)
+            setUser(res.data.user);
           });
         }
         setLoading(false);
@@ -93,7 +96,9 @@ const handleSubmit = (e) => {
     }));
 }
 
- return (
+
+if(isLoggedIn){
+  return (
     <ThemeProvider theme={defaultTheme}>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
@@ -158,4 +163,8 @@ const handleSubmit = (e) => {
       </Container>
     </ThemeProvider>
   );
+}else{
+  <></>
+}
+ 
 }

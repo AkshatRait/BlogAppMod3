@@ -99,7 +99,7 @@ const [existingUserError,setExistingUserError] = React.useState('');
     };
 
 
-    if(currentLoggedInUser){
+    if(!currentLoggedInUser){
       return <SignIn />
     }else{
       return (
