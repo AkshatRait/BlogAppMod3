@@ -7,6 +7,7 @@ const morgan = require('morgan')
 const User = require('./models/User.js');
 const Post = require('./models/Post.js');
 require('./config/db.js');
+require('dotenv').config()
 const app = express();
 const PORT = 3000;
 const bcrypt = require('bcrypt');
