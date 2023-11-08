@@ -2,6 +2,7 @@ import React, { useContext, useState } from 'react'
 import "./index.css"
 import { primaryContext } from '../../Context/primaryProvider'
 import axios from 'axios'
+import { Button, TextField } from '@mui/material'
 
 const PostPage = () => {
     const [postFormData,setPostFormData] = useState({
@@ -30,6 +31,7 @@ const {setSubmitHappened}=useContext(primaryContext)
           console.log("Submitted successfully",res)
           setSubmitHappened(true)
         })
+        setSubmitHappened(null)
     }catch(err){
         console.log(err,"error occurred in submitted post")
     }
@@ -41,10 +43,10 @@ const {setSubmitHappened}=useContext(primaryContext)
   
   return (
     <div className='post'>
-        <h3>Create Post Here!</h3>
+        <h3>Create a Post Here!</h3>
         <form onSubmit={handleSubmit}>
             <label htmlFor="image">Add an image here:</label>
-            <input 
+            <TextField
             type="text"
             value={postFormData.image}
             name="image"
@@ -52,14 +54,14 @@ const {setSubmitHappened}=useContext(primaryContext)
             placeholder='Image Url'
             onChange={handleChange} />
             <label htmlFor="image">Add a caption here:</label>
-            <input 
+            <TextField 
             type="text"
             value={postFormData.caption}
             name="caption"
             placeholder='Beautiful caption waiting for you'
             onChange={handleChange} 
             id="caption" />
-            <button type='submit'>POST</button>
+            <Button sx={{marginTop:'5px',width:'20%',backgroundColor:"#718093",color:'white'}}variant="outlined"type='submit'>POST</Button>
         </form>
     </div> 
   )

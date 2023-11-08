@@ -2,6 +2,7 @@ import { useContext, useState } from "react"
 import "./index.css"
 import { primaryContext } from "../../Context/primaryProvider"
 import axios from "axios"
+import { Button, TextField } from "@mui/material"
 
 const CreatePost = () => {
   const [showInput,setShowInput] = useState(false)
@@ -31,6 +32,7 @@ const CreatePost = () => {
     }catch(err){
         console.log(err,"error occurred in submitted post")
     }
+    setSubmitHappened(null)
     setPostFormData({
       caption: "",
       image: "",
@@ -42,22 +44,24 @@ const CreatePost = () => {
         <div className="profile">
             <img src="https://nickelodeonuniverse.com/wp-content/uploads/Squidward.png" alt="" />
         </div>
-        <input 
-            type="text"
+        <TextField sx={{backgroundColor:"white",height:"60%",marginTop:"15px"}}type="text"
             value={postFormData.caption}
             name="caption"
             placeholder='Write Something Here!'
             onChange={handleChange} 
-            id="caption" />
-            <button onClick={!showInput ? ()=>setShowInput(true) : ()=>setShowInput(false)}>show More:</button>
-            {showInput ? <input 
+            id="caption" variant="filled" color="primary"/>
+            <Button sx={{height:"60%",backgroundColor:"white"}}variant="outlined" onClick={!showInput ? ()=>setShowInput(true) : ()=>setShowInput(false)}>{!showInput ? <p>Show More:</p>: <p>Show Less:</p>}</Button>
+            <span></span>
+            {showInput ? <TextField
+             sx={{backgroundColor:"white",height:"80%",marginTop:"10px"}}
             type="text"
             value={postFormData.image}
             name="image"
             placeholder='Add an Image Here!'
             onChange={handleChange} 
-            id="image" /> : null}
-        <button className="submit"onClick={handleSubmit}type="submit">Post</button>
+            id="image"
+            variant="outlined" /> : null}
+        <Button sx={{height:"50%",backgroundColor:"white"}}variant="outlined" className="submit"onClick={handleSubmit}type="submit">Post</Button>
     </div>
   )
 }

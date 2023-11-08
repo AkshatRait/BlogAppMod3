@@ -1,74 +1,76 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react';
 import { primaryContext } from '../../Context/primaryProvider';
 import axios from 'axios';
 import Timeline from '../../Components/Timeline';
 import { Link } from 'react-router-dom';
+import { Button } from '@mui/material';
 
 const ProfilePage = () => {
-  const {currentLoggedInUser,setCurrentLoggedInUser,user,setUser} = useContext(primaryContext)
+  const { currentLoggedInUser, setCurrentLoggedInUser, user, setUser, setSubmitHappened } = useContext(primaryContext);
 
-  const [profileMade,setProfileMade] = useState(false);
-    const [profileFormData,setProfileFormData] = useState({
-        name: "",
-        image: "",
-      })
+  const [profileMade, setProfileMade] = useState(false);
+  const [profileFormData, setProfileFormData] = useState({
+    name: '',
+    image: '',
+  });
 
-    const handleChange = (e)=>{
-        const { name,value } = e.target;
-        setProfileFormData((prevState) => ({
-            ...prevState,
-            [name]: value
-        }));
-      }
-      
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setProfileFormData((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
 
-      const handleSubmit = (e)=>{
-              setProfileMade(true)
-              setCurrentLoggedInUser({name:profileFormData.name,
-                image:profileFormData.image})
-                let name = currentLoggedInUser.name
-                let image = currentLoggedInUser.image
-                localStorage.setItem("loggedInUser" , name)
-                localStorage.setItem("loggedInImage" , image)
-        setProfileFormData({
-          image:"",   
-          name: ""
-        })
-      }
 
-      console.log(user)
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setProfileMade(true);
 
-      if(profileMade){
-        return <Timeline />
-      }else{
-        return (
-          <div className='profile'>
-              <h3>Add a profile pic</h3>
-              <form onSubmit={handleSubmit}>
-                  <label htmlFor="image">Add an username here:</label>
-                  <input 
-                  type="text"
-                  value={profileFormData.name}
-                  name="name"
-                  id="name"
-                  placeholder='UseName'
-                  onChange={handleChange} />
-                  <label htmlFor="image">Add a profile picture here:</label>
-                  <input 
-                  type="text"
-                  value={profileFormData.image}
-                  name="image"
-                  placeholder='image'
-                  onChange={handleChange} 
-                  id="image" />
-                  <Link to="/">
-                    <button type='submit'>POST</button>
-                  </Link>
-              </form>
-          </div> 
-        )
-      }
+    setSubmitHappened(true);
+    setProfileFormData({
+      image: '',
+      name: '',
+    });
+    setSubmitHappened(null);
+  };
 
-}
 
-export default ProfilePage
+  if (profileMade) {
+    return <Timeline />;
+  } else {
+    return (
+    //   <div className="profile">
+    //     <h3>Add a profile pic</h3>
+    //     <form onSubmit={handleSubmit}>
+    //       <label htmlFor="name">Add an username here:</label>
+    //       <input
+    //         type="text"
+    //         value={profileFormData.name}
+    //         name="name"
+    //         id="name"
+    //         placeholder="Username"
+    //         onChange={handleChange}
+    //       />
+    //       <label htmlFor="image">Add a profile picture here:</label>
+    //       <input
+    //         type="text"
+    //         value={profileFormData.image}
+    //         name="image"
+    //         placeholder="Image"
+    //         onChange={handleChange}
+    //         id="image"
+    //       />
+    //     </form>
+    //   </div>
+    // );
+    <div>
+      <h1>Under Construction</h1>
+          <Link to="/home">
+              <Button variant="outlined" type="submit">Go back</Button>
+          </Link>
+    </div>)
+  }
+};
+
+export default ProfilePage;

@@ -35,7 +35,7 @@ const Navbar = () => {
       <Link to="/profile" className="navigation-link">
          <PersonIcon />
       </Link>
-      <Link onClick={()=>setLoggedOut(!true)} id="signout" className="navigation-link">
+      <Link onClick={()=>setLoggedOut(true)} id="signout" className="navigation-link">
          <LogoutIcon />
       </Link>
       {user === 'string' ? <p className="name">{user.firstName}</p> : <></>}

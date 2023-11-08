@@ -4,7 +4,7 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
 import IosShareIcon from '@mui/icons-material/IosShare';
 import axios from "axios";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { primaryContext } from "../../Context/primaryProvider";
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
@@ -37,9 +37,11 @@ const Post = ({post}) => {
         url: "/server/deletePost",
         data: {id : id}
       }).then((res)=>{
+        setSubmitHappened(true)
         console.log("deletion successful");
         setDeletePostStatus(true)
       })
+      setSubmitHappened(null)
     }catch(err){
       console.log(err)
     }
@@ -53,14 +55,11 @@ const Post = ({post}) => {
         url: `/server/editPost?idOfPost=${id}`,
         data: updatedFormData
       }).then((res)=>{
-        if(!submitHappened){
-          setSubmitHappened(true)
-        }else{
-          setSubmitHappened(true)
-        }
+        setSubmitHappened(true)
         console.log("Editing");
         setEditing(false)
       })
+      setSubmitHappened(null)
     }catch(err){
       console.log(err)
     }
@@ -100,16 +99,16 @@ const Post = ({post}) => {
         <div className="post-bar"><h4>{user}</h4><p>{post.createdAt}</p></div>
           <img src={post.image} alt="" />
           {!post.image == "" ? 
-          <div>
+          <div className="post-content">
             <div className="post-buttons">
             <div onClick={!liked ? ()=>setLiked(true) : ()=>setLiked(false)}>{liked ? <FavoriteBorderIcon  /> : <FavoriteIcon sx={{ color: "red" }}/>}</div> 
             <button onClick={()=> setEditing(true)}><EditIcon/></button>
             <button onClick={()=>deletePost(post._id)}><DeleteIcon/></button>
           </div>
-          <p>{user}-{post.caption}</p>
+          <strong>{user}</strong><p>{post.caption}</p>
           </div> : 
-          <div>
-            <p>{user}-{post.caption}</p>
+          <div className="post-content">
+            <strong>{user}</strong><p>{post.caption}</p>
             <div className="post-buttons">
             <div onClick={!liked ? ()=>setLiked(true) : ()=>setLiked(false)}>{liked ? <FavoriteBorderIcon  /> : <FavoriteIcon sx={{ color: "red" }}/>}</div> 
             <button onClick={()=> setEditing(true)}><EditIcon/></button>

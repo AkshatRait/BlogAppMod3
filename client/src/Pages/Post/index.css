@@ -6,7 +6,14 @@
 }
 
 .post{
+    background-color: #dcdde1;
+    padding:10px;
     width: 80%;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     margin: auto;
 }
 

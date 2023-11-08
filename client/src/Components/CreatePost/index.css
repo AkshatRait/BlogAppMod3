@@ -1,9 +1,14 @@
 #create-post{
-    background-color:  #ffffff;
+    background-color:#487eb0;
     display: grid;
     grid-template-columns: 20% 1fr 15% 15%;
     gap:5px;
     margin-bottom: 10px;
+    align-content: center;
+    justify-content: center;
+    width: 50%;
+    margin: auto;
+    box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
 }
 
 #create-post button{
@@ -11,14 +16,6 @@
     padding:10%;
 }
 
-#create-post input{
-    background-color: white;
-    border-radius: 15px;    
-    margin: auto;
-    width: 90%;
-    color: black;
-    grid-column: 2;
-}
 
 
 .profile img{
@@ -28,8 +25,8 @@
 }
 
 .profile{
-    width: 8vw;
-    height:8vh;
+    width: 50%;
+    height:80%;
     border-radius: 50%;
     border: solid 2px black
 }

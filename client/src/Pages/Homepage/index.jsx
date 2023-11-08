@@ -11,7 +11,7 @@ import CreatePost from "../../Components/CreatePost/"
 const HomePage = () => {
 
   const [isLoading, setIsLoading] = useState(true);
-  const {setUser,user,addingPost,setAddingPost,isLoggedIn,setIsLoggedIn,newUser,setNewUser,cameFromSignUp,setCameFromSignUp,editProfile,setEditProfile} = useContext(primaryContext)
+  const {setUser,user,addingPost,setAddingPost,isLoggedIn,setIsLoggedIn,newUser,setNewUser,cameFromSignUp,setCameFromSignUp,editProfile,setEditProfile,loggedOut,setLoggedOut} = useContext(primaryContext)
 
 console.log(user)
   if(cameFromSignUp){
@@ -42,8 +42,8 @@ useEffect(()=>{
 
 
   return (
-    <div>
-      <CreatePost />
+    <div className="homepage">
+      {addingPost ? <></> : <CreatePost />}
       {isLoading ? <p>Loading...</p> : isLoggedIn ?   <div id="homepage">
         {isLoggedIn ? newUser ? <MakeProfile /> : addingPost ? <PostPage /> : <Timeline /> : <SignIn />}
     </div> : <p>No data found</p>}

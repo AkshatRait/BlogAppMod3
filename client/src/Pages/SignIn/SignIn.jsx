@@ -70,8 +70,6 @@ const handleSubmit = (e) => {
             method: "GET",
             url: `/server/getUser/${signinFormData.email}`,
           }).then((res) => {
-            console.log(signinFormData.email);
-            console.log(res.data.user);
             localStorage.setItem("userName", res.data.user.firstName)
             setUser(res.data.user);
           });
