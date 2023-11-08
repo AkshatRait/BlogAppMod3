@@ -4,7 +4,7 @@
 
 Blogger's Spot is a social blogging app that combines the best features of Instagram and Facebook. It allows users to create and share posts, follow other bloggers, and engage with their content. This app is designed to provide a seamless and user-friendly experience for bloggers and content creators.
 
-![Blogger's Spot](screenshot.png)
+![Blogger's Spot](![Screenshot 2023-11-07 223030](https://github.com/AkshatRait/BlogAppMod3/assets/115198197/350e04c9-f33d-471b-b524-018d07ce1cc2))
 
 ## Technologies Used
 
