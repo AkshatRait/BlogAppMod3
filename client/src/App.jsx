@@ -24,7 +24,6 @@ function App() {
         <Route path="/profile" element={<ProfilePage />}/>
         <Route path="/home/timeline" element={<Timeline />}/>
       </Routes>
-      <Footer />
       
        
     </div>

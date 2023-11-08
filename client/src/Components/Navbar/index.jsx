@@ -3,16 +3,16 @@ import "./index.css"
 import AddIcon from '@mui/icons-material/Add';
 import PersonIcon from '@mui/icons-material/Person';
 import LogoutIcon from '@mui/icons-material/Logout';
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { primaryContext } from "../../Context/primaryProvider";
 import MakeProfile from "../MakeProfile";
 
 const Navbar = () => {
-   const {addingPost,setAddingPost,currentLoggedInUser,user,loggedOut,setLoggedOut} = useContext(primaryContext)
+   const {addingPost,setAddingPost,currentLoggedInUser,user,loggedOut,setLoggedOut,isLoggedIn} = useContext(primaryContext)
   return (
     <div className="navigation">
    <div className="logo">
-      <Link className="no-underline" to="/home">
+      <Link className="no-underline" to="">
       Bloggers Spot
       </Link>
    </div>

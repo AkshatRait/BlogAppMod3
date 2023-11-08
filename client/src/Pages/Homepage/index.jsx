@@ -7,6 +7,7 @@ import SignIn from "../SignIn/SignIn"
 import MakeProfile from "../../Components/MakeProfile"
 import axios from "axios"
 import CreatePost from "../../Components/CreatePost/"
+import Footer from "../../Components/Footer"
 
 const HomePage = () => {
 
@@ -45,9 +46,11 @@ useEffect(()=>{
     <div className="homepage">
       {addingPost ? <></> : <CreatePost />}
       {isLoading ? <p>Loading...</p> : isLoggedIn ?   <div id="homepage">
-        {isLoggedIn ? newUser ? <MakeProfile /> : addingPost ? <PostPage /> : <Timeline /> : <SignIn />}
+        {isLoggedIn ?  addingPost ? <PostPage /> : <Timeline /> : <SignIn />}
     </div> : <p>No data found</p>}
+    <Footer />
     </div>
+
     
   )
 }
