@@ -30,7 +30,8 @@ To get started with Blogger's Spot, follow these steps:
 For a live version of Blogger's Spot, you can access it on GitHub Pages or Render.
 
 ## Unsolved Problems
-[List any known issues or problems that are currently unsolved.]
+   - Profile Page to add Profile Picture and Set Custom UserName.
+   - Set up more users to one mutual database.
 ## Future Enhancements
  ### In the future, we plan to implement the following enhancements:
 
@@ -38,7 +39,8 @@ For a live version of Blogger's Spot, you can access it on GitHub Pages or Rende
   * Commenting and liking on posts.
   * Mobile-responsive design.
   * Enhanced security features.
+  * Responsive Design
 Your feedback and contributions are welcome to help us improve Blogger's Spot!
 
 # Hosted App
-  Live App
+ [ Live App](https://bloggersspot-a8pb.onrender.com)
